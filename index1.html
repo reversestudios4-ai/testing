@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC DASHBOARD ADMIN</title>
+    <style>
+        :root { --primary: #ffffff; --accent: #510C81; --text-dark: #1e3a8a; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #510C81 0%, #1e3a8a 50%, #0f172a 100%); background-attachment: fixed; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .screen { display: none; padding: 30px; width: 100%; max-width: 500px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(81, 12, 129, 0.5); color: white; animation: slideUp 0.4s ease-out; box-sizing: border-box; }
+        .active-screen { display: block; }
+        h2 { margin: 0 0 10px 0; font-size: 24px; text-align: center; }
+        p { text-align: center; color: rgba(255, 255, 255, 0.8); font-size: 14px; margin-bottom: 25px; }
+        .input-group { position: relative; width: 100%; margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 12px; font-weight: bold; color: rgba(255,255,255,0.9); }
+        .input-field { width: 100%; padding: 14px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 16px; box-sizing: border-box; outline: none; }
+        .toggle-pass { position: absolute; right: 15px; top: 38px; cursor: pointer; font-size: 11px; font-weight: bold; color: rgba(255, 255, 255, 0.7); }
+        .button { width: 100%; padding: 15px; background: var(--primary); color: var(--accent); border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-secondary { background: transparent; color: white; border: 1px solid white; margin-top: 15px; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .tab-btn { padding: 12px; font-size: 12px; margin: 0; }
+        .member-card { background: rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 15px; margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        #spinner-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:9999; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .logo { text-align: center; margin-bottom: 20px; }
+        .logo img { max-width: 150px; height: auto; }
+    </style>
+</head>
+<body>
+
+<div id="spinner-overlay"><div class="loader"></div></div>
+
+<div id="screen-role" class="screen active-screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2>HWBC DASHBOARD ADMIN</h2>
+    <p>Select leadership designation</p>
+    <div class="input-group">
+        <label>Designation</label>
+        <select id="role-select" class="input-field" onchange="App.toggleBranchList()">
+            <option value="">-- Select Role --</option>
+        </select>
+    </div>
+    <div id="branch-select-group" class="input-group" style="display:none;"><label>Branch</label><select id="branch-select" class="input-field"></select></div>
+    <div id="circuit-select-group" class="input-group" style="display:none;"><label>Circuit</label><select id="circuit-select" class="input-field"></select></div>
+    <button class="button" onclick="App.handleRoleSelection()">Continue to Registration</button>
+    <button class="button btn-secondary" onclick="App.navigate('screen-login')">Sign In</button>
+</div>
+
+<div id="screen-register" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2 id="reg-title">Create Account</h2>
+    <div class="input-group"><label>Full Name</label><input id="reg-username" class="input-field"></div>
+    <div class="input-group"><label>Email</label><input id="reg-email" type="email" class="input-field"></div>
+    <div class="input-group">
+        <label>Secure Password</label>
+        <input id="reg-password" type="password" class="input-field">
+        <span class="toggle-pass" onclick="App.togglePassword('reg-password')">SHOW</span>
+    </div>
+    <button class="button" onclick="App.register()">Complete Signup</button>
+    <button class="button btn-secondary" onclick="App.navigate('screen-role')">Back</button>
+</div>
+
+<div id="screen-login" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2>Secure Sign In</h2>
+    <div class="input-group">
+        <label>Role</label>
+        <select id="login-role" class="input-field">
+            <option value="">-- Select Role --</option>
+            <option value="NATIONAL">National Leader</option>
+            <option value="SECRETARY">Secretary</option>
+            <option value="FINANCE">Finance Leader</option>
+            <option value="BRANCH">Branch Leader</option>
+            <option value="CIRCUIT">Circuit Leader</option>
+        </select>
+    </div>
+    <div class="input-group"><label>Email</label><input id="login-email" type="email" class="input-field"></div>
+    <div class="input-group">
+        <label>Password</label>
+        <input id="login-password" type="password" class="input-field">
+        <span class="toggle-pass" onclick="App.togglePassword('login-password')">SHOW</span>
+    </div>
+    <button class="button" onclick="App.login()">Log In</button>
+    <button class="button btn-secondary" onclick="App.navigate('screen-role')">Back</button>
+</div>
+
+<div id="screen-dashboard" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2 id="user-display">HWBC DASHBOARD ADMIN</h2>
+    <div id="national-section" style="display:none;" class="dashboard-grid">
+        <button class="button tab-btn" onclick="App.openBranches()">Branches</button>
+        <button class="button tab-btn" onclick="App.openSermons()">Sermons</button>
+        <button class="button tab-btn" onclick="App.openMusic()">Music</button>
+        <button class="button tab-btn" onclick="App.openGallery()">Gallery</button>
+        <button class="button tab-btn" onclick="App.openBursaries()">Bursaries</button>
+        <button class="button tab-btn" onclick="App.viewAllLeaders()">Leaders</button>
+    </div>
+    <div id="finance-section" style="display:none;"><div id="finance-circuit-container" class="dashboard-grid"></div></div>
+    <div id="branch-section" style="display:none;" class="dashboard-grid">
+        <button class="button tab-btn" onclick="App.navigate('screen-member-register')">Register Member</button>
+        <button class="button tab-btn" onclick="App.viewBranchMembers()">View Members</button>
+        <button class="button tab-btn" onclick="App.navigate('screen-verify-members')">Verify Fee</button>
+    </div>
+    <div id="circuit-section" style="display:none;" class="dashboard-grid">
+        <button class="button tab-btn" onclick="App.viewCircuitMembers()">View Members</button>
+        <button class="button tab-btn" onclick="App.viewCircuitFinances()">View Finances</button>
+    </div>
+    <button class="button btn-secondary" onclick="App.logout()">Logout</button>
+</div>
+
+<div id="screen-finance-members" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2>Audit Members</h2>
+    <div id="finance-member-list"></div>
+    <button class="button btn-secondary" onclick="App.navigate('screen-dashboard')">Back</button>
+</div>
+
+<div id="screen-member-register" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2>Member Enrolment</h2>
+    <div class="input-group"><label>Profile Image</label><input type="file" id="m-image" class="input-field"></div>
+    <div class="input-group"><label>First Name</label><input id="m-first" class="input-field"></div>
+    <div class="input-group"><label>Last Name</label><input id="m-last" class="input-field"></div>
+    <div class="input-group"><label>Address</label><input id="m-address" class="input-field"></div>
+    <button class="button" onclick="App.registerMember()">Save & Generate PDF</button>
+    <button class="button btn-secondary" onclick="App.navigate('screen-dashboard')">Back</button>
+</div>
+
+<div id="screen-manage-content" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2 id="mgmt-title">Management</h2>
+    <div class="input-group"><label>Title</label><input id="mgmt-name" class="input-field"></div>
+    <div class="input-group"><label id="mgmt-desc-label">Description</label><textarea id="mgmt-desc" class="input-field"></textarea></div>
+    <div class="input-group"><label>File</label><input type="file" id="mgmt-file" class="input-field"></div>
+    <button class="button" onclick="App.saveContent()">Publish</button>
+    <button class="button btn-secondary" onclick="App.navigate('screen-dashboard')">Back</button>
+</div>
+
+<div id="screen-leaders" class="screen">
+    <div class="logo">
+        <img src="images/logo.png" alt="HWBC Church Logo">
+    </div>
+    <h2>Registered Leaders</h2>
+    <div id="leaders-list"></div>
+    <button class="button btn-secondary" onclick="App.navigate('screen-dashboard')">Back</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

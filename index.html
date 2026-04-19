@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entry Point</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/finance.js"></script>
+    <script src="js/dashboard.js"></script>
+</head>
+<body>
+    <div id="role-selection">
+        <h2>Select your role:</h2>
+        <button id="login-btn">Login</button>
+        <button id="register-btn">Register</button>
+    </div>
+
+    <div id="registration-form" style="display:none;">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div id="login-form" style="display:none;">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email:</label>
+            <input type="email" id="loginEmail" name="loginEmail" required>
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="dashboard-screens" style="display:none;">
+        <h2>Dashboard</h2>
+        <!-- Dashboard Content Goes Here -->
+    </div>
+
+    <script>
+        document.getElementById('login-btn').onclick = function() {
+            document.getElementById('role-selection').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        };
+        document.getElementById('register-btn').onclick = function() {
+            document.getElementById('role-selection').style.display = 'none';
+            document.getElementById('registration-form').style.display = 'block';
+        };
+    </script>
+</body>
+</html>

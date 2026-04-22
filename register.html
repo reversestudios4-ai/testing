@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC | Leader Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>body { justify-content: center; align-items: center; }</style>
+</head>
+<body>
+    <div id="spinner-overlay"><div class="loader"></div></div>
+
+    <div class="card">
+        <div class="logo" style="text-align:center; margin-bottom: 1rem;">
+            <img src="images/logo.png" alt="HWBC Logo" style="width: 100px;">
+        </div>
+        <h2 style="color: var(--primary);">Create Leader Account</h2>
+        <p>Official HWBC Administrative Enrolment</p>
+
+        <label>Full Name</label>
+        <input type="text" id="reg-username" placeholder="Enter your full name">
+
+        <label>Email Address</label>
+        <input type="email" id="reg-email" placeholder="email@hwbc.com">
+
+        <label>Access Role</label>
+        <select id="reg-role" onchange="AuthUI.toggleBranchList()">
+            <option value="">-- Select Role --</option>
+            <option value="NATIONAL">National Leader</option>
+            <option value="SECRETARY">Secretary</option>
+            <option value="FINANCE">Finance Leader</option>
+            <option value="BRANCH">Branch Leader</option>
+            <option value="CIRCUIT">Circuit Leader</option>
+        </select>
+
+        <div id="branch-select-group" style="display:none;">
+            <label>Assign to Branch</label>
+            <select id="branch-select" class="input-field"></select>
+        </div>
+
+        <div id="circuit-select-group" style="display:none;">
+            <label>Assign to Circuit</label>
+            <select id="circuit-select" class="input-field"></select>
+        </div>
+
+        <div class="input-group">
+            <label>Secure Password</label>
+            <input type="password" id="reg-password">
+            <span class="toggle-pass" onclick="UI.togglePassword('reg-password')">SHOW</span>
+        </div>
+
+        <button class="btn-primary" onclick="Auth.signup()">Register Account</button>
+        
+        <p style="margin-top: 1rem;">
+            <a href="index.html" style="color: var(--primary); font-weight: bold; text-decoration: none;">Already have an account? Login</a>
+        </p>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Page-specific helper to populate the dropdowns
+        const AuthUI = {
+            toggleBranchList() {
+                const role = document.getElementById('reg-role').value;
+                document.getElementById('branch-select-group').style.display = (role === 'BRANCH') ? 'block' : 'none';
+                document.getElementById('circuit-select-group').style.display = (role === 'CIRCUIT') ? 'block' : 'none';
+            }
+        };
+        window.onload = () => {
+            const bSel = document.getElementById('branch-select');
+            const cSel = document.getElementById('circuit-select');
+            const branches = ["Tsakane","Soshanguve","Vosloorus","Daveyton","Soweto","Ndlunkulu","Ka-Mhlutshwa","Mshadza","Matsulu","Barberton","Witbank","Breyton","Badplaas","Nhlazatshe","Secunda","Ermelo","Machododorp","Matsapha","Siteki"];
+            branches.forEach(b => bSel.add(new Option(b, b)));
+            Object.keys(CIRCUITS).forEach(c => cSel.add(new Option(c, c)));
+        };
+    </script>
+</body>
+</html>

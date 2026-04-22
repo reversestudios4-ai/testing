@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC | Administration Dashboard</title>
+    <style>
+        :root { --primary: #ffffff; --accent: #510C81; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #510C81 0%, #1e3a8a 50%, #0f172a 100%); background-attachment: fixed; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
+        .screen { padding: 30px; width: 100%; max-width: 600px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); animation: slideUp 0.4s ease-out; box-sizing: border-box; }
+        h2 { margin: 0 0 5px 0; text-align: center; }
+        p { text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 25px; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .button { width: 100%; padding: 15px; background: var(--primary); color: var(--accent); border: none; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .btn-secondary { background: transparent; color: white; border: 1px solid white; margin-top: 20px; }
+        .logo { text-align: center; margin-bottom: 20px; }
+        .logo img { max-width: 100px; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="logo"><img src="images/logo.png" alt="HWBC Logo"></div>
+        <h2 id="welcome-text">Welcome, Leader</h2>
+        <p id="user-info">Administrative Hub</p>
+
+        <div id="action-grid" class="dashboard-grid">
+            <!-- These are examples; your dashboard.js will populate these -->
+            <a href="content.html?type=SERMON" class="button">Sermons</a>
+            <a href="content.html?type=MUSIC" class="button">Music</a>
+            <a href="apology_oversight.html" class="button">Apology Audit</a>
+            <a href="finance.html" class="button">Financial Reports</a>
+            <a href="members.html" class="button">Manage Members</a>
+            <a href="branch_finance.html" class="button">Branch Finance</a>
+        </div>
+
+        <button class="button btn-secondary" onclick="UI.logout()">Logout</button>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC | Content Management</title>
+    <style>
+        :root { --primary: #ffffff; --accent: #510C81; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #510C81 0%, #1e3a8a 50%, #0f172a 100%); background-attachment: fixed; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
+        .screen { padding: 30px; width: 100%; max-width: 500px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; box-sizing: border-box; }
+        label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: bold; opacity: 0.9; }
+        input, textarea, select { width: 100%; padding: 14px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px; background: rgba(255, 255, 255, 0.1); color: white; margin-bottom: 20px; box-sizing: border-box; outline: none; }
+        select option { background: #1e3a8a; color: white; }
+        .button { width: 100%; padding: 15px; background: var(--primary); color: var(--accent); border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        .btn-secondary { background: transparent; color: white; border: 1px solid white; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <h2 id="page-title">Manage Content</h2>
+        <p id="page-desc">Publish to mobile app</p>
+
+        <div id="dynamic-form-fields">
+            <!-- JavaScript will inject fields here -->
+            <label>Title / Theme</label>
+            <input type="text" id="content-title" placeholder="e.g. Walking in Grace">
+            <label id="desc-label">Preacher / Artist</label>
+            <input type="text" id="content-desc">
+            <label>Media File</label>
+            <input type="file" id="content-file">
+            <label>Thumbnail (Image)</label>
+            <input type="file" id="content-thumb" accept="image/*">
+        </div>
+
+        <button class="button" onclick="Content.publish()">Publish to App</button>
+        <button class="button btn-secondary" onclick="location.href='dashboard.html'">Back</button>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/content.js"></script>
+</body>
+</html>

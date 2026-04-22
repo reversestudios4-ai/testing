@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC | Apology Oversight</title>
+    <style>
+        :root { --primary: #ffffff; --accent: #510C81; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #510C81 0%, #1e3a8a 50%, #0f172a 100%); background-attachment: fixed; margin: 0; display: flex; justify-content: center; padding: 40px 20px; min-height: 100vh; color: white; }
+        .screen { width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px; box-sizing: border-box; }
+        .apology-item { background: rgba(255,255,255,0.1); border-left: 4px solid white; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+        .input-field { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; margin-bottom: 20px; }
+        .button { padding: 12px 20px; background: var(--primary); color: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-secondary { background: transparent; color: white; border: 1px solid white; margin-top: 20px; width: 100%; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin:0;">Apology Audit</h2>
+            <button class="button" onclick="window.print()">Print PDF</button>
+        </div>
+
+        <label>Select Sunday Date</label>
+        <input type="date" id="apology-date" class="input-field">
+
+        <div id="selection-flow">
+            <h3 id="flow-title">1. Select Circuit</h3>
+            <div id="oversight-grid" class="dashboard-grid"></div>
+        </div>
+
+        <div id="results-area" style="display:none; margin-top: 2rem;">
+            <h3 id="results-title">Branch Records</h3>
+            <div id="apology-list"></div>
+        </div>
+
+        <button class="btn-secondary" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/apology_oversight.js"></script>
+</body>
+</html>

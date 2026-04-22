@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWBC | Financial Hub</title>
+    <style>
+        :root { --primary: #ffffff; --accent: #510C81; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #510C81 0%, #1e3a8a 50%, #0f172a 100%); background-attachment: fixed; margin: 0; display: flex; justify-content: center; padding: 40px 20px; min-height: 100vh; color: white; }
+        .screen { width: 100%; max-width: 900px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 30px; box-sizing: border-box; }
+        h2, h3 { color: white; margin-top: 0; }
+        .input-field { width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.1); color: white; margin-bottom: 20px; }
+        .audit-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden; }
+        .audit-table th { background: rgba(255,255,255,0.2); padding: 15px; text-align: left; font-size: 14px; }
+        .audit-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
+        .button { padding: 12px 20px; background: var(--primary); color: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-secondary { background: transparent; color: white; border: 1px solid white; margin-top: 20px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <h2>Financial Oversight</h2>
+        <p>Tracking Fees and Contributions</p>
+        
+        <div id="circuit-container">
+            <h3>Select Circuit</h3>
+            <div id="circuit-list" class="dashboard-grid"></div>
+        </div>
+
+        <div id="audit-results" style="display:none; margin-top: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="audit-title">Branch Audit</h3>
+                <button class="button" onclick="window.print()">Export PDF</button>
+            </div>
+            <table class="audit-table">
+                <thead>
+                    <tr><th>Member</th><th>Category</th><th>Status</th></tr>
+                </thead>
+                <tbody id="member-audit-body"></tbody>
+            </table>
+        </div>
+
+        <a href="dashboard.html" class="button btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/finance.js"></script>
+</body>
+</html>
